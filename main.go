@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 )
@@ -27,4 +28,20 @@ func main() {
 	}
 
 	fmt.Println(string(file))
+
+	file2, err := os.Open("file.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	reader := bufio.NewReader(file2)
+	buffer := make([]byte, 10)
+	for {
+		n, err := reader.Read(buffer)
+		if err != nil {
+			break
+		}
+		fmt.Println(string(buffer[:n]))
+	}
+
 }
